@@ -1,4 +1,4 @@
-/*Homework 8 Name: Morgan Nager*/
+
 package scala
 
 object tree {
