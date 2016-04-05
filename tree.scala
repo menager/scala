@@ -1,3 +1,4 @@
+/*Homework 8 Name: Morgan Nager*/
 package scala
 
 object tree {
@@ -20,13 +21,14 @@ object tree {
   
  case class OrderedInt(i:Int) extends Ordered[OrderedInt]{
     def compare(that: OrderedInt) = this.i - that.i
+    override def toString = (i.toString())
   }
   
   trait Tree[X]{
     def contains(e:X):Boolean
     def ins(e:X): Tree[X]
     
-    def insert(e:X)(implicit ordering: Ordering[X]): Tree[X] =
+    def insert(e:X)(implicit ord: Ordering[X]): Tree[X] =
       ins(e) match{
         case Leaf() => Node(Red, e, Leaf(), Leaf())
         case Node(_, x, y, z) => Node(Black, x, y, z)
@@ -42,7 +44,7 @@ object tree {
   case class Leaf[X <% Ordered[X]]() extends Tree[X]{
     def contains(e:X) = false
     def ins(e:X) = {
-      Node[X](Red, e, Leaf(), Leaf())
+      Node(Red, e, Leaf(), Leaf())
     }
     
     override def toString ="L"
@@ -60,7 +62,7 @@ object tree {
       else Node(color, x, left, right.ins(e)).balance
     }
     
-      def balance ={
+     def balance ={
      
       this match{ 
         case Node(Black, z, Node(Red, y, Node(Red, x, a, b), c), d) =>
@@ -75,7 +77,7 @@ object tree {
        
         }
       }
-
+    
     override def toString = "(" + left + ", " + x + ":" + color + ", " + right + ")"
   }
   
